@@ -1,0 +1,128 @@
+/* AdminPanel.css */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #1b1f38;
+  color: #fff;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 220px;
+  background-color: #0d1226;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.admin-sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #4fc3f7;
+}
+.admin-sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+.admin-sidebar nav ul li {
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+.admin-sidebar nav ul li.active,
+.admin-sidebar nav ul li:hover {
+  background-color: #16204a;
+  color: #4fc3f7;
+}
+.admin-sidebar nav ul li svg {
+  margin-right: 10px;
+}
+
+/* Main content */
+.admin-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+.admin-main header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.admin-main h2 {
+  color: #4fc3f7;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #16204a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+thead {
+  background-color: #0d1226;
+}
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+tbody tr {
+  border-bottom: 1px solid #0d1226;
+}
+tbody tr:hover {
+  background-color: #1a2446;
+}
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.delete-btn svg {
+  margin-right: 5px;
+}
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+/* Snippets table */
+.code-snippet {
+  max-width: 300px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace;
+  color: #a8c4f7;
+}
+
+.view-btn,
+.download-btn {
+  background-color: #4fc3f7;
+  color: #0d1226;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.view-btn svg,
+.download-btn svg {
+  margin-right: 5px;
+}
+.view-btn:hover,
+.download-btn:hover {
+  background-color: #6fc7f9;
+}

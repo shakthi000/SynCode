@@ -1,0 +1,255 @@
+/* ===========================
+   1️⃣ Global Animated Gradient
+=========================== */
+*{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Geneva, Tahoma, sans-serif, Geneva, Verdana, sans-serif;
+}
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Times', sans-serif;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #f0f0f0;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===========================
+   2️⃣ Auth Pages (Login / Signup)
+=========================== */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(30, 30, 45, 0.85);
+  color: #f0f0f0;
+  padding: 40px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  margin: 80px auto;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 255, 200, 0.2);
+  backdrop-filter: blur(10px);
+  animation: fadeSlideIn 0.6s ease-out;
+}
+
+.auth-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #00ffe0, #00b3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-container input {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(20, 20, 35, 0.9);
+  color: #e0e0e0;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+  transition: 0.2s;
+}
+
+.auth-container input:focus {
+  border: 1px solid #00ffe0;
+}
+
+.auth-container button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+  background: linear-gradient(135deg, #00ffe0, #00b3ff);
+  color: #fff;
+  transition: 0.3s;
+}
+
+.auth-container button:hover {
+  opacity: 0.85;
+}
+
+.auth-container a {
+  text-decoration: none;
+  color: #00b3ff;
+  transition: 0.3s;
+}
+
+.auth-container a:hover {
+  color: #00ffe0;
+}
+
+.auth-container p {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #ccc;
+}
+
+/* ===========================
+   3️⃣ Dashboard
+=========================== */
+.dashboard-container {
+  padding: 25px;
+  min-height: 100vh;
+  color: #f0f0f0;
+}
+
+.dashboard-welcome {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  background: linear-gradient(90deg, #00ffe0, #00b3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+}
+
+/* Panels (Editor / Snippets) */
+.editor-column, .snippets-panel {
+  background: rgba(26, 31, 43, 0.85);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 255, 200, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #e60000;
+}
+
+/* ===========================
+   4️⃣ Editor
+=========================== */
+.editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.editor-toolbar select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(40, 42, 54, 0.95);
+  color: #f8f8f2;
+  border: none;
+  font-weight: bold;
+}
+
+.editor-buttons button {
+  margin-left: 10px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00ffe0, #00b3ff);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.editor-buttons button:hover {
+  opacity: 0.85;
+}
+
+.output-box {
+  margin-top: 15px;
+  background: rgba(21, 27, 40, 0.9);
+  padding: 14px;
+  border-radius: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #c5c8c6;
+  max-height: 20vh;
+  overflow-y: auto;
+}
+
+/* ===========================
+   5️⃣ Snippets
+=========================== */
+.snippet-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.snippet-card {
+  background: rgba(32, 49, 74, 0.85);
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.snippet-card:hover {
+  background: rgba(44, 74, 106, 0.9);
+  transform: translateY(-2px);
+}
+
+.snippet-actions button {
+  margin-left: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.snippet-actions button:hover {
+  color: #00ffe0;
+}
+
+/* ===========================
+   6️⃣ Animations for inputs & buttons
+=========================== */
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.auth-container input,
+.auth-container button,
+.auth-container p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.6s ease-out forwards;
+}
+
+.auth-container input:nth-child(2) { animation-delay: 0.1s; }
+.auth-container input:nth-child(3) { animation-delay: 0.2s; }
+.auth-container button { animation-delay: 0.3s; }
+.auth-container p { animation-delay: 0.4s; }
