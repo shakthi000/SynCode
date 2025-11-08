@@ -110,13 +110,19 @@ app.post("/refresh-token", async (req, res) => {
 // ==========================
 // 📝 Snippet Routes
 // ==========================
+// routes/snippets.js or in server.js
 app.post("/save", protect, async (req, res) => {
+  const { language, code } = req.body;
+  if (!code || !language) return res.status(400).json({ message: "Code and language are required" });
+
   try {
-    const { language, code } = req.body;
     const snippet = new Snippet({ userId: req.user._id, language, code });
     await snippet.save();
-    res.status(201).json({ message: "Saved successfully", snippet });
+    console.log("Snippet saved:", snippet._id);
+
+    res.status(201).json({ message: "Saved successfully", _id: snippet._id, snippet });
   } catch (err) {
+    console.error("Error saving snippet:", err);
     res.status(500).json({ error: err.message });
   }
 });

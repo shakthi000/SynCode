@@ -1,50 +1,63 @@
-// routes/chatbot.js
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
+const axios = require("axios");
+const multer = require("multer");
 const { protect } = require("../middleware/auth");
-const { addSnippet, querySnippet } = require("../utils/vectorStore");
-const ChatLog = require("../models/ChatLog"); // New model for storing activity
 
-// Path to your snippets JSON
-const snippetsPath = path.join(__dirname, "../snippets.json");
-let snippets = [];
+const upload = multer(); // for parsing multipart/form-data
 
-// Load snippets from JSON on server start
-try {
-  const rawData = fs.readFileSync(snippetsPath, "utf8");
-  snippets = JSON.parse(rawData);
-  snippets.forEach(s => addSnippet(s.id, s.text));
-  console.log(`Loaded ${snippets.length} snippets into vector store.`);
-} catch (err) {
-  console.error("Error loading snippets:", err);
-}
-
-// Chatbot endpoint (offline)
+// Ask chatbot (RAG)
 router.post("/ask", protect, async (req, res) => {
   const { question } = req.body;
-
   try {
-    // Query relevant snippets
-    const relevant = querySnippet(question, 3);
+    const response = await axios.post(
+      "http://localhost:8000/api/rag/chat",
+      { question, userId: req.user._id },
+      { headers: { Authorization: req.headers.authorization } } // optional
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.error("Error calling RAG:", err.message);
+    res.status(500).json({ error: "Error generating answer from RAG" });
+  }
+});
 
-    const answer = relevant.length
-      ? relevant.map((s, i) => `Snippet ${i + 1}:\n${s.text}`).join("\n\n")
-      : "Sorry, I don't have any relevant snippets right now.";
+// Upload document to RAG
+router.post("/uploadDoc", protect, upload.single("file"), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ message: "File missing" });
 
-    // Store chat activity in MongoDB
-    await ChatLog.create({
-      user: req.user.id,          // Added by `protect` middleware
-      question,
-      answer,
-      snippetsReturned: relevant
+    const formData = new FormData();
+    formData.append("file", file.buffer, file.originalname);
+
+    const response = await axios.post("http://localhost:8000/api/rag/uploadDocument", formData, {
+      headers: {
+        ...formData.getHeaders(),
+        Authorization: req.headers.authorization,
+      },
     });
 
-    res.json({ answer });
+    res.json(response.data);
   } catch (err) {
-    console.error("Error in chatbot:", err.message);
-    res.status(500).json({ error: "Error generating answer" });
+    console.error("Error uploading document:", err.message);
+    res.status(500).json({ message: "Error uploading document", error: err.message });
+  }
+});
+
+// Optional: add saved code snippet to RAG
+router.post("/addSnippet", protect, async (req, res) => {
+  const { snippetId, code } = req.body;
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/api/rag/uploadDocument",
+      { file: code, name: `snippet-${snippetId}.txt` }, // simple way to send snippet
+      { headers: { Authorization: req.headers.authorization } }
+    );
+    res.json({ message: "Snippet added to RAG", data: response.data });
+  } catch (err) {
+    console.error("Error adding snippet to RAG:", err.message);
+    res.status(500).json({ error: "Failed to add snippet to RAG" });
   }
 });
 
